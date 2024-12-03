@@ -5,3 +5,5 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
   end
 end
+
+puts 'shoulda-matchers loaded'
