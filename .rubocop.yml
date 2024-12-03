@@ -1,0 +1,53 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.2.2
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - '/**/spec/support/schemas/**/*'
+    - '/**/db/migrate/**/*'
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - '/**/db/migrate/**/*'
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/NestedGroups:
+  Max: 6
+
+Style/NumericLiterals:
+  Exclude:
+    - '/**/db/schema.rb'
+
+Style/ClassVars:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - '/**/db/schema.rb'
+
+Style/StringLiterals:
+  Exclude:
+    - '/**/db/schema.rb'
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 20
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - '/**/spec/requests/**/*'
+
+Metrics/ParameterLists:
+  Max: 8
