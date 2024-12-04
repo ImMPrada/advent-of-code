@@ -3,4 +3,3 @@ class Confirmation
     true
   end
 end
-
