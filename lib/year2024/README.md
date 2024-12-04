@@ -61,8 +61,8 @@ require './lib/year_2024/day_3/resolver.rb'
 
 resolver = Year2024::Day3::Resolver.new
 
-resolver.run_case_1 # => the result for part one
+resolver.run_case1 # => the result for part one
 
-resolver.run_case_2 # => the result for part two
+resolver.run_case2 # => the result for part two
 ```
 

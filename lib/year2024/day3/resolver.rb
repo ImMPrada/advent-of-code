@@ -1,7 +1,7 @@
 module Year2024
   module Day3
     class Resolver
-      FILE_PATH = 'lib/year_2024/day_3/input.txt'
+      FILE_PATH = 'lib/year2024/day3/input.txt'.freeze
 
       attr_reader :file_content
 
@@ -10,12 +10,12 @@ module Year2024
         @file_content = file_content
       end
 
-      def run_case_1
+      def run_case1
         numbers = self.class.get_valid_commands(file_content)
         self.class.sum_valid_commands(numbers)
       end
 
-      def run_case_2
+      def run_case2
         numbers = self.class.filter_actionable_commands(file_content)
         self.class.sum_valid_commands(numbers)
       end
@@ -40,7 +40,8 @@ module Year2024
 
         split_by_do.map do |substring|
           next if substring.slice(0, 3) == "n't"
-          get_valid_commands(substring).each{ |pair| numbers << pair } 
+
+          get_valid_commands(substring).each { |pair| numbers << pair }
         end
 
         numbers
