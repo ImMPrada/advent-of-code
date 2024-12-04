@@ -2,7 +2,7 @@ require 'byebug'
 
 RSpec.configure do |config|
   # Automatically load all files in the 'support' folder
-  Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
+  Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |file| require file }
 
   # Enable shared context metadata behavior
   config.shared_context_metadata_behavior = :apply_to_host_groups
