@@ -4,14 +4,10 @@ on:
   pull_request:
     types:
       - closed
-    branches:
-      - '20[0-9][0-9]' # Matches branches like 2019, 2020, 2021, etc.
-    paths:
-      - 'test-*' # Matches branches like day-1, day-2, etc.
 
 jobs:
   notify:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.base.ref, '2024')
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.base.ref, '20[0-9][0-9]') && contains(github.event.pull_request.head.ref, 'test-')
     runs-on: ubuntu-latest
     steps:
       - name: Echo branch name
