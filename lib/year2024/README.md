@@ -26,6 +26,50 @@
 - [Day 24](#day-24)
 - [Day 25](#day-25)
 
+## Day 1
+
+### Part One
+
+Help the Senior Historians find the Chief Historian by collecting fifty stars. Solve puzzles to earn stars.
+
+Example:
+```
+3   4
+4   3
+2   5
+1   3
+3   9
+3   3
+```
+Total distance: 11.
+
+### Part Two
+
+Calculate the similarity score by finding how often each number from the left list appears in the right list.
+
+Example:
+```
+3   4
+4   3
+2   5
+1   3
+3   9
+3   3
+```
+Similarity score: 31.
+
+[Link to the challenge](https://adventofcode.com/2024/day/1)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day1/resolver.rb'
+resolver = Year2024::Day1::Resolver.new
+resolver.run_case1 # => result for part one
+resolver.run_case2 # => result for part two
+```
+
 ## Day 3
 
 ### Part One
@@ -57,12 +101,9 @@ irb
 Run the Resolver:
 
 ```bash
-require './lib/year_2024/day_3/resolver.rb'
-
+require './lib/year2024/day3/resolver.rb'
 resolver = Year2024::Day3::Resolver.new
-
 resolver.run_case1 # => the result for part one
-
 resolver.run_case2 # => the result for part two
 ```
 
