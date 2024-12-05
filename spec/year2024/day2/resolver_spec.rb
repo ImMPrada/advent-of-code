@@ -52,4 +52,22 @@ RSpec.describe Year2024::Day2::Resolver do
       end
     end
   end
+
+  # describe 'report_safe_with_dampener?' do
+  #   context 'when is valid' do
+  #     let(:report) { [8, 6, 4, 1] }
+
+  #     it 'returns true' do
+  #       expect(resolver.report_safe_with_dampener?(report)).to contain_exactly(3, true)
+  #     end
+  #   end
+
+  #   context 'when is not safe' do
+  #     let(:report) { [1, 2, 7, 8, 9] }
+
+  #     it 'returns false' do
+  #       expect(resolver.report_safe_with_dampener?(report)).to contain_exactly(1, false)
+  #     end
+  #   end
+  # end
 end

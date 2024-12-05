@@ -22,10 +22,23 @@ module Year2024
       end
 
       def report_safe?(report)
-        left_index = 0
-        right_index = report.size - 1
+        index = 0
+        safe = true
+        direction = nil
 
-        check_report(report, left_index, right_index)
+        while index < report.size - 1
+          value = report[index]
+          next_value = report[index + 1]
+          step_direction = levels_direction(value, next_value)
+          direction = step_direction if direction.nil?
+          diff = diff_magnitude(value, next_value)
+          safe = valid_step?(direction, step_direction, diff)
+          break unless safe
+
+          index += 1
+        end
+
+        safe
       end
 
       private
@@ -41,35 +54,12 @@ module Year2024
         (level1 - level2).abs
       end
 
-      def diff_within_limit?(report, left_index, right_index)
-        left_diff = diff_magnitude(report[left_index], report[left_index + 1])
-        right_diff = diff_magnitude(report[right_index - 1], report[right_index])
+      def valid_step?(direction, step_direction, diff)
+        return false if step_direction == NEITHER_DECREASE_NOR_INCREASE
+        return false unless direction == step_direction
+        return false unless diff.between?(1, DIFF_LIMIT)
 
-        (left_diff.positive? && left_diff <= DIFF_LIMIT) && (right_diff.positive? && right_diff <= DIFF_LIMIT)
-      end
-
-      def valid_direction?(direction, global_direction, report, left_index, right_index)
-        left_direction = levels_direction(report[left_index], report[left_index + 1])
-        right_direction = levels_direction(report[right_index - 1], report[right_index])
-
-        puts "left side values: #{report[left_index]} #{report[left_index + 1]} -- #{left_direction} -- #{direction}"
-        puts "right side values: #{report[right_index - 1]} #{report[right_index]} -- #{right_direction} -- #{direction}"
-        (left_direction == direction) && (right_direction == direction) && (direction == global_direction)
-      end
-
-      def check_report(report, left_index, right_index, direction = nil)
-        left_value = report[left_index]
-        right_value = report[right_index]
-        border_direction = levels_direction(left_value, right_value)
-
-        return false if border_direction == NEITHER_DECREASE_NOR_INCREASE
-        return false unless diff_within_limit?(report, left_index, right_index)
-        unless valid_direction?(border_direction, direction || border_direction, report, left_index, right_index)
-          return false
-        end
-        return true if left_index + 1 >= right_index - 1
-
-        check_report(report, left_index + 1, right_index - 1, border_direction)
+        true
       end
     end
   end
