@@ -17,7 +17,28 @@ module Year2024
 
       def run_case1
         safe_reports = reports.select { |report| report_safe?(report) }
-        puts "#{safe_reports.size}/#{reports.size}"
+        safe_reports.size
+      end
+
+      def run_case2
+        safe_reports = []
+        reports.each do |report|
+          is_safe = report_safe?(report)
+          if is_safe
+            safe_reports << report
+            next
+          end
+
+          index = 0
+
+          while index <= report.size - 1 && !is_safe
+            new_report = remove_index_item(report, index)
+            is_safe = report_safe?(new_report)
+            safe_reports << new_report if is_safe
+            index += 1
+          end
+        end
+
         safe_reports.size
       end
 
@@ -60,6 +81,10 @@ module Year2024
         return false unless diff.between?(1, DIFF_LIMIT)
 
         true
+      end
+
+      def remove_index_item(arr, index)
+        arr[0...index] + arr[index + 1..]
       end
     end
   end
