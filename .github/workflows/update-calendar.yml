@@ -1,15 +1,14 @@
 name: Update Calendar
 
 on:
-  push:
-    branches:
-      - '20[0-9][0-9]' # Matches branches like 2019, 2020, 2021, etc.
-    paths:
-      - 'day-*' # Matches branches like day-1, day-2, etc.
+  pull_request:
+    types: [closed]
+    branches-ignore:
+      - main
 
 jobs:
   update-calendar:
-    if: contains(github.ref, '20[0-9][0-9]') && contains(github.head_ref, 'day-')
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.base.ref, '^\d{4}$') && contains(github.event.pull_request.head.ref, '^day-\d+$')
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +18,8 @@ jobs:
       - name: Update calendar
         run: |
           echo "Updating calendar..."
-          DAY=$(echo "${{ github.head_ref }}" | grep -oP '\d+')
-          YEAR=$(echo "${{ github.ref }}" | grep -oP '20[0-9][0-9]')
+          DAY=$(echo "${{ github.event.pull_request.head.ref }}" | grep -oP '\d+')
+          YEAR=${{ github.event.pull_request.base.ref }}
           README_FILE="README.md"
           TEMP_FILE="README_TEMP.md"
           
