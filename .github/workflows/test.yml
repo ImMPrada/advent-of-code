@@ -1,0 +1,14 @@
+name: On PR Merge to 2024
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  notify:
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.base.ref, '2024')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo branch name
+        run: 'echo "Done! Branch: ${{ github.event.pull_request.head.ref }}"'
