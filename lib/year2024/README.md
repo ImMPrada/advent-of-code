@@ -70,6 +70,50 @@ resolver.run_case1 # => result for part one
 resolver.run_case2 # => result for part two
 ```
 
+## Day 2
+
+### Part One
+
+Analyze the unusual data from the engineers. How many reports are safe?
+
+Example:
+```
+7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9
+```
+Safe reports: 2.
+
+### Part Two
+
+Update your analysis by handling situations where the Problem Dampener can remove a single level from unsafe reports. How many reports are now safe?
+
+Example:
+```
+7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9
+```
+Safe reports: 4.
+
+[Link to the challenge](https://adventofcode.com/2024/day/2)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day2/resolver.rb'
+resolver = Year2024::Day2::Resolver.new
+resolver.run_case1 # => result for part one
+resolver.run_case2 # => result for part two
+```
+
 ## Day 3
 
 ### Part One
