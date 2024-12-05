@@ -26,4 +26,27 @@ RSpec.describe Year2024::Day1::Resolver do
       expect(resolver.run_case1).to eq(11)
     end
   end
+
+  describe '#list_numbers_occurrences' do
+    let(:expected_result) do
+      {
+        3 => 3,
+        4 => 1,
+        5 => 1,
+        9 => 1
+      }
+    end
+
+    it 'returns the numbers and their occurrences' do
+      expect(resolver.list_numbers_occurrences).to eq(expected_result)
+    end
+  end
+
+  describe '#run_case2' do
+    let(:expected_result) { 31 }
+
+    it 'returns the sum of the valid commands' do
+      expect(resolver.run_case2).to eq(expected_result)
+    end
+  end
 end

@@ -20,20 +20,48 @@ module Year2024
         @file_content = file_content
       end
 
+      def run_case1
+        sort_lists
+        sum = 0
+
+        list1.each_with_index do |value_i1, index|
+          sum += (value_i1 - list2[index]).abs
+        end
+
+        sum
+      end
+
+      def run_case2
+        found_numbers = list_numbers_occurrences
+        sum = 0
+
+        list1.each do |value|
+          next unless found_numbers.key?(value)
+
+          sum += found_numbers[value] * value
+        end
+
+        sum
+      end
+
       def sort_lists
         @list1.sort!
         @list2.sort!
       end
 
-      def run_case1
-        sort_lists
-        sum = 0
+      def list_numbers_occurrences
+        found_numbers = {}
 
-        @list1.each_with_index do |value_i1, index|
-          sum += (value_i1 - @list2[index]).abs
+        list2.each do |value|
+          if found_numbers.key?(value)
+            found_numbers[value] = found_numbers[value] + 1
+            next
+          end
+
+          found_numbers[value] = 1
         end
 
-        sum
+        found_numbers
       end
     end
   end
