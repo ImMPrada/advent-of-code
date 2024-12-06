@@ -13,27 +13,19 @@ jobs:
       contents: write
       pull-requests: write 
     steps:
-      - name: "📥 Update GitHub Readme files"
-        uses: actions/checkout@main
+      - name: Checkout the repository
+        uses: actions/checkout@v4
 
-      - name: Update README.md
+      - name: Setup Git
         run: |
-          python .github/workflows/resources/replace_tag.py
-
-      - name: commit
-        run: |
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git checkout -b "update-readme-${{ github.head_ref }}"
-          git add .
-          git commit -m "README update Automation" -a
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: "2024"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Append a word to README.md
+        run: echo "nueva_palabra" >> README.md
+
+      - name: Commit and push changes
+        run: |
+          git add README.md
+          git commit -m "Update README after PR merge"
+          git push origin ${{ github.ref }}
