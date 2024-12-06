@@ -1,4 +1,5 @@
 require 'byebug'
+require 'matrix'
 
 RSpec.configure do |config|
   # Automatically load all files in the 'support' folder
