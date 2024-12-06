@@ -6,6 +6,7 @@ GEM
     diff-lcs (1.5.1)
     json (2.9.0)
     language_server-protocol (3.17.0.3)
+    matrix (0.4.2)
     parallel (1.26.3)
     parser (3.3.6.0)
       ast (~> 2.4.1)
@@ -52,6 +53,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug (~> 11.1)
+  matrix (~> 0.4.2)
   rspec (~> 3.13)
   rubocop (~> 1.21)
   rubocop-rspec (~> 3.2)
