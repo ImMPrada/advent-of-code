@@ -14,4 +14,4 @@ For more information, visit the [Advent of Code website](https://adventofcode.co
 | 22  | 23  | 24  | 25  | 26  | 27  | 28  |
 | 29  | 30  | 31  |     |     |     |     |
 
-<variable-YOURTAG-tag>"0.0"
+<variable-VERSION-tag>"0.0"

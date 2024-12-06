@@ -10,7 +10,7 @@ for root, dirs, files in os.walk("."):
              readmefiles.append(os.path.join(root, file))
 
 # load variable json
-with open('readme.json') as f:
+with open('.github/workflows/resources/readme.json') as f:
   var_dic = json.load(f)
 
 # match pattern (<variable-*.?-tag>)(`*.?`)
