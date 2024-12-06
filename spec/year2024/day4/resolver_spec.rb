@@ -1,11 +1,23 @@
 require 'spec_helper'
 
 RSpec.describe Year2024::Day4::Resolver do
-  subject(:resolver) { described_class.new('spec/year2024/day4/input.txt') }
+  subject(:resolver) { described_class.new(file_path) }
+
+  let(:file_path) { nil }
 
   describe '#run_case1' do
+    let(:file_path) { 'spec/year2024/day4/input.txt' }
+
     it 'returns the number of times the word "XMAS" appears' do
       expect(resolver.run_case1).to eq(18)
+    end
+  end
+
+  describe '#run_case2' do
+    let(:file_path) { 'spec/year2024/day4/input_part_two.txt' }
+
+    it 'returns the number of times the word "MAS" on X appears' do
+      expect(resolver.run_case2).to eq(9)
     end
   end
 

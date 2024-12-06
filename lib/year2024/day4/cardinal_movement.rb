@@ -1,44 +1,14 @@
+require './lib/year2024/day4/direction_constructors'
+require './lib/year2024/day4/movement_limits'
+
 module Year2024
   module Day4
     class CardinalMovement
-      NORTH = :north
-      WEST = :west
-      SOUTH = :south
-      EAST = :east
-
       attr_reader :row_limit, :column_limit
 
-      def self.northen(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, NORTH, nil, input_puzzle)
-      end
+      extend DirectionConstructors
 
-      def self.north_western(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, NORTH, WEST, input_puzzle)
-      end
-
-      def self.western(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, WEST, nil, input_puzzle)
-      end
-
-      def self.south_western(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, SOUTH, WEST, input_puzzle)
-      end
-
-      def self.southern(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, SOUTH, nil, input_puzzle)
-      end
-
-      def self.south_eastern(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, SOUTH, EAST, input_puzzle)
-      end
-
-      def self.eastern(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, EAST, nil, input_puzzle)
-      end
-
-      def self.north_eastern(row, col, index_offset, input_puzzle)
-        new(row, col, index_offset, NORTH, EAST, input_puzzle)
-      end
+      include MovementLimits
 
       def initialize(row, column, index_offset, main_direction, secondary_direction, input_puzzle)
         @row = row
@@ -50,11 +20,6 @@ module Year2024
         @western_border = 0
         @southern_border = input_puzzle.row_count - 1
         @eastern_border = input_puzzle.column_count - 1
-      end
-
-      def compute_limits
-        compute_main_direction_limits
-        compute_secondary_direction_limits if secondary_direction
       end
 
       def can_move_to?(row, column)
@@ -78,31 +43,6 @@ module Year2024
       private
 
       attr_reader :row, :column, :index_offset, :main_direction, :secondary_direction
-
-      def compute_main_direction_limits
-        @row_limit = row
-        @column_limit = column
-
-        case main_direction
-        when NORTH
-          @row_limit -= index_offset
-        when WEST
-          @column_limit -= index_offset
-        when SOUTH
-          @row_limit += index_offset
-        when EAST
-          @column_limit += index_offset
-        end
-      end
-
-      def compute_secondary_direction_limits
-        case secondary_direction
-        when WEST
-          @column_limit -= index_offset
-        when EAST
-          @column_limit += index_offset
-        end
-      end
 
       def compute_next_position_for_main_direction(row, column)
         next_row = row

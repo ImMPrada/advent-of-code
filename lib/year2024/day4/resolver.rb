@@ -26,33 +26,45 @@ module Year2024
         find_word(puzzle, target_word).size
       end
 
-      def find_word(input_puzzle, word, selected_movements = nil)
+      def run_case2
+        target_word = 'MAS'
+        row = 0
+        col = 0
+        count = 0
+
+        while row < puzzle.row_count - 2
+          while col < puzzle.column_count - 2
+            puzzle_window = Matrix.build(3, 3) { |r, c| puzzle[row + r, col + c] }
+            found_count = find_word(puzzle_window, target_word, x_path: true).size
+            count += found_count if found_count == 2
+            col += 1
+          end
+
+          row += 1
+          col = 0
+        end
+
+        count / 2
+      end
+
+      def find_word(input_puzzle, word, x_path: false)
         first_letter = word[0]
         all_words_starting_with_first_letter = []
 
         input_puzzle.each_with_index do |letter, row, col|
           next unless letter == first_letter
 
-          words = build_words(input_puzzle, row, col, word.size, selected_movements)
+          words = build_words(input_puzzle, row, col, word.size, x_path:)
           all_words_starting_with_first_letter += words
         end
 
         all_words_starting_with_first_letter.select { |w| w == word }
       end
 
-      def build_words(input_puzzle, row, col, letters_count, selected_movements = nil)
+      def build_words(input_puzzle, row, col, letters_count, x_path: false)
         words = []
         index_offset = letters_count - 1
-        movements = selected_movements || [
-          CardinalMovement.northen(row, col, index_offset, input_puzzle),
-          CardinalMovement.north_western(row, col, index_offset, input_puzzle),
-          CardinalMovement.western(row, col, index_offset, input_puzzle),
-          CardinalMovement.south_western(row, col, index_offset, input_puzzle),
-          CardinalMovement.southern(row, col, index_offset, input_puzzle),
-          CardinalMovement.south_eastern(row, col, index_offset, input_puzzle),
-          CardinalMovement.eastern(row, col, index_offset, input_puzzle),
-          CardinalMovement.north_eastern(row, col, index_offset, input_puzzle)
-        ]
+        movements = build_movements(row, col, index_offset, input_puzzle, x_path)
 
         movements.each do |movement|
           movement.compute_limits
@@ -77,6 +89,21 @@ module Year2024
         end
 
         word
+      end
+
+      def build_movements(row, col, index_offset, input_puzzle, x_path)
+        movements = []
+
+        movements << CardinalMovement.northen(row, col, index_offset, input_puzzle) unless x_path
+        movements << CardinalMovement.north_western(row, col, index_offset, input_puzzle)
+        movements << CardinalMovement.western(row, col, index_offset, input_puzzle) unless x_path
+        movements << CardinalMovement.south_western(row, col, index_offset, input_puzzle)
+        movements << CardinalMovement.southern(row, col, index_offset, input_puzzle) unless x_path
+        movements << CardinalMovement.south_eastern(row, col, index_offset, input_puzzle)
+        movements << CardinalMovement.eastern(row, col, index_offset, input_puzzle) unless x_path
+        movements << CardinalMovement.north_eastern(row, col, index_offset, input_puzzle)
+
+        movements
       end
     end
   end
