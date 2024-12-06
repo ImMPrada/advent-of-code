@@ -20,19 +20,20 @@ jobs:
         run: |
           python .github/workflows/resources/replace_tag.py
 
-      # - name: pull-request
-      #   uses: repo-sync/pull-request@v2
-      #   with:
-      #     destination_branch: "2024"
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: commit
         run: |
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
+          git checkout -b "update-readme-${{ github.head_ref }}"
           git add .
           git commit -m "README update Automation" -a
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "2024"
           github_token: ${{ secrets.GITHUB_TOKEN }}
