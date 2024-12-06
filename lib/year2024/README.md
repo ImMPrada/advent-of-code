@@ -151,3 +151,54 @@ resolver.run_case1 # => the result for part one
 resolver.run_case2 # => the result for part two
 ```
 
+# Day 4
+
+### Part One
+
+Help the Elf find all instances of the word "XMAS" in the word search.
+
+Example:
+```
+MMMSXXMASM
+MSAMXMSMSA
+AMXSXMAAMM
+MSAMASMSMX
+XMASAMXAMM
+XXAMMXXAMA
+SMSMSASXSS
+SAXAMASAAA
+MAMMMXMMMM
+MXMXAXMASX
+```
+Occurrences of "XMAS": 18.
+
+### Part Two
+
+Find all instances of "X-MAS" in the word search, where "X-MAS" is formed by two "MAS" in the shape of an X.
+
+Example:
+```
+MMMSXXMASM
+MSAMXMSMSA
+AMXSXMAAMM
+MSAMASMSMX
+XMASAMXAMM
+XXAMMXXAMA
+SMSMSASXSS
+SAXAMASAAA
+MAMMMXMMMM
+MXMXAXMASX
+```
+Occurrences of "X-MAS": 9.
+
+[Link to the challenge](https://adventofcode.com/2024/day/4)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day4/resolver.rb'
+resolver = Year2024::Day4::Resolver.new
+resolver.run_case1 # => result for part one
+resolver.run_case2 # => result for part two
+```
