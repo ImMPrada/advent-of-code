@@ -20,11 +20,11 @@ jobs:
         run: |
           python .github/workflows/resources/replace_tag.py
 
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: pull-request
+      #   uses: repo-sync/pull-request@v2
+      #   with:
+      #     destination_branch: "2024"
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: commit
         run: |
