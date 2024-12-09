@@ -27,6 +27,20 @@ RSpec.describe Year2024::Day5::Resolver do
     end
   end
 
+  describe '#filter_invalid_order_updates' do
+    let(:expected_result) do
+      [
+        [75, 97, 47, 61, 53],
+        [61, 13, 29],
+        [97, 13, 75, 29, 47]
+      ]
+    end
+
+    it 'returns the invalid order updates' do
+      expect(resolver.filter_invalid_order_updates).to match_array(expected_result)
+    end
+  end
+
   describe '#sum_middle_pages_of_sequences' do
     let(:sequences) do
       [
@@ -39,6 +53,29 @@ RSpec.describe Year2024::Day5::Resolver do
 
     it 'returns the sum of the middle pages of the sequences' do
       expect(resolver.sum_middle_pages_of_sequences(sequences)).to eq(expected_result)
+    end
+  end
+
+  describe '#order_sequence' do
+    let(:sequences) do
+      [
+        [75, 97, 47, 61, 53],
+        [61, 13, 29],
+        [97, 13, 75, 29, 47]
+      ]
+    end
+    let(:expected_results) do
+      [
+        [97, 75, 47, 61, 53],
+        [61, 29, 13],
+        [97, 75, 47, 29, 13]
+      ]
+    end
+
+    it 'returns the ordered sequence' do
+      sequences.each_with_index do |sequence, index|
+        expect(resolver.order_sequence(sequence)).to eq(expected_results[index])
+      end
     end
   end
 end
