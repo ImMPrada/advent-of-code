@@ -202,3 +202,72 @@ resolver = Year2024::Day4::Resolver.new
 resolver.run_case1 # => result for part one
 resolver.run_case2 # => result for part two
 ```
+
+## Day 5
+
+### Part One
+
+Determine which updates are already in the correct order based on the given page ordering rules.
+
+Example:
+```
+47|53
+97|13
+97|61
+97|47
+75|29
+61|13
+75|53
+29|13
+97|29
+53|29
+61|53
+97|53
+61|29
+47|13
+75|47
+97|75
+47|61
+75|61
+47|29
+75|13
+53|13
+
+75,47,61,53,29
+97,61,53,29,13
+75,29,13
+75,97,47,61,53
+61,13,29
+97,13,75,29,47
+```
+Correctly ordered updates: 75,47,61,53,29; 97,61,53,29,13; 75,29,13.
+
+Middle page numbers: 61, 53, 29.
+
+Sum of middle page numbers: 143.
+
+### Part Two
+
+Fix the incorrectly-ordered updates using the page ordering rules.
+
+Example:
+```
+75,97,47,61,53 becomes 97,75,47,61,53.
+61,13,29 becomes 61,29,13.
+97,13,75,29,47 becomes 97,75,47,29,13.
+```
+Middle page numbers after reordering: 47, 29, 47.
+
+Sum of middle page numbers: 123.
+
+[Link to the challenge](https://adventofcode.com/2024/day/5)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day5/resolver.rb'
+resolver = Year2024::Day5::Resolver.new
+resolver.run_case1 # => result for part one
+resolver.run_case2 # => result for part two
+```
