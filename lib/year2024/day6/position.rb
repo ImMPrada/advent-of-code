@@ -7,6 +7,10 @@ module Year2024
         @row = row
         @col = col
       end
+
+      def to_a
+        [row, col]
+      end
     end
   end
 end

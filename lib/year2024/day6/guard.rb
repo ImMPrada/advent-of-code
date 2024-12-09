@@ -31,7 +31,7 @@ module Year2024
       def initialize(direction, position)
         @direction = direction
         @position = position
-        @visited_positions = [[position, direction]]
+        @visited_positions = [position]
       end
 
       def move(map)
@@ -45,6 +45,12 @@ module Year2024
 
         move_forward
         true
+      end
+
+      def find_exit(map)
+        can_move = true
+
+        can_move = move(map) while can_move
       end
 
       private
@@ -64,7 +70,12 @@ module Year2024
 
       def move_forward
         new_position = next_step_position
-        @visited_positions << [new_position, direction]
+        @position = new_position
+        @visited_positions << new_position if add_visited_position?(new_position)
+      end
+
+      def add_visited_position?(position)
+        visited_positions.none? { |visited_position| visited_position.to_a == position.to_a }
       end
 
       def next_step_position # rubocop:disable Metrics/AbcSize
