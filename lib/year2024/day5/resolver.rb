@@ -13,8 +13,17 @@ module Year2024
         build_updates(updates)
       end
 
+      def run_case1
+        sequences = filter_valid_order_updates
+        sum_middle_pages_of_sequences(sequences)
+      end
+
       def filter_valid_order_updates
         pages_updates.select { |sequence| add_to_updates_filter?(sequence, ordering_rules) }
+      end
+
+      def sum_middle_pages_of_sequences(sequences)
+        sequences.map { |sequence| sequence[sequence.size / 2] }.sum
       end
 
       private
