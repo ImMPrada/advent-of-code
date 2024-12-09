@@ -10,7 +10,11 @@ module Year2024
 
         rules, updates = file_content.split("\n\n")
         build_ordering_rules(rules)
-        build_ordering_updates(updates)
+        build_updates(updates)
+      end
+
+      def filter_valid_order_updates
+        pages_updates.select { |sequence| add_to_updates_filter?(sequence, ordering_rules) }
       end
 
       private
@@ -31,8 +35,20 @@ module Year2024
         end
       end
 
-      def build_ordering_updates(updates)
-        @pages_updates = updates.split("\n").map { |line| line.split(',').map(&:to_i) }.flatten
+      def build_updates(updates)
+        @pages_updates = updates.split("\n").map { |line| line.split(',').map(&:to_i) }
+      end
+
+      def add_to_updates_filter?(sequence, rules)
+        sequence.each_with_index do |page, index|
+          next if index == sequence.size - 1
+
+          possible_next_pages = rules[page]
+          return false if possible_next_pages.nil?
+
+          next_page = sequence[index + 1]
+          return false unless rules[page].include?(next_page)
+        end
       end
     end
   end
