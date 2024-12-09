@@ -18,25 +18,34 @@ module Year2024
         sum_middle_pages_of_sequences(sequences)
       end
 
+      def run_case2
+        sequences = filter_invalid_order_updates
+        sorted_sequences = sequences.map { |sequence| sort_sequence(sequence) }
+        sum_middle_pages_of_sequences(sorted_sequences)
+      end
+
       def filter_invalid_order_updates
-        pages_updates.reject { |sequence| add_to_updates_filter?(sequence, ordering_rules) }
+        pages_updates.reject { |sequence| valid_sequence?(sequence, ordering_rules) }
       end
 
       def filter_valid_order_updates
-        pages_updates.select { |sequence| add_to_updates_filter?(sequence, ordering_rules) }
+        pages_updates.select { |sequence| valid_sequence?(sequence, ordering_rules) }
       end
 
       def sum_middle_pages_of_sequences(sequences)
         sequences.map { |sequence| sequence[sequence.size / 2] }.sum
       end
 
-      def order_sequence(sequence)
+      def sort_sequence(sequence)
         invalid_pages_indexes = get_invalid_value_indexes(sequence)
 
         invalid_pages = invalid_pages_indexes.map { |index| sequence[index] }
         filtered_pages = sequence - invalid_pages
 
-        sort_pages(filtered_pages, invalid_pages)
+        sorted_sequence = sort_pages(filtered_pages, invalid_pages)
+        return sorted_sequence if valid_sequence?(sorted_sequence, ordering_rules)
+
+        sort_sequence(sorted_sequence)
       end
 
       private
@@ -61,7 +70,7 @@ module Year2024
         @pages_updates = updates.split("\n").map { |line| line.split(',').map(&:to_i) }
       end
 
-      def add_to_updates_filter?(sequence, rules)
+      def valid_sequence?(sequence, rules)
         sequence.each_with_index do |page, index|
           next if index == sequence.size - 1
 

@@ -13,6 +13,14 @@ RSpec.describe Year2024::Day5::Resolver do
     end
   end
 
+  describe '#run_case2' do
+    let(:expected_result) { 123 }
+
+    it 'returns the sum of the middle pages of the sequences' do
+      expect(resolver.run_case2).to eq(expected_result)
+    end
+  end
+
   describe '#filter_valid_order_updates' do
     let(:expected_result) do
       [
@@ -56,7 +64,7 @@ RSpec.describe Year2024::Day5::Resolver do
     end
   end
 
-  describe '#order_sequence' do
+  describe '#sort_sequence' do
     let(:sequences) do
       [
         [75, 97, 47, 61, 53],
@@ -74,7 +82,7 @@ RSpec.describe Year2024::Day5::Resolver do
 
     it 'returns the ordered sequence' do
       sequences.each_with_index do |sequence, index|
-        expect(resolver.order_sequence(sequence)).to eq(expected_results[index])
+        expect(resolver.sort_sequence(sequence)).to eq(expected_results[index])
       end
     end
   end
