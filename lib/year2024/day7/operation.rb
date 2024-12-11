@@ -1,7 +1,6 @@
 module Year2024
   module Day7
     class Operation
-      FILE_PATH = 'lib/year2024/day7/input.txt'.freeze
       OPERATORS = %i[+ *].freeze
 
       attr_reader :result, :numbers, :operators

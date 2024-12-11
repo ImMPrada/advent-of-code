@@ -22,6 +22,8 @@ module Year2024
 
       private
 
+      attr_reader :file_path
+
       def run(custom_operators = nil)
         possible_operations = []
 
@@ -31,8 +33,6 @@ module Year2024
 
         possible_operations.sum
       end
-
-      attr_reader :file_path
 
       def build_operations
         file_content = File.read(file_path)
