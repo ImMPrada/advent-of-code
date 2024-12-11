@@ -271,3 +271,47 @@ resolver = Year2024::Day5::Resolver.new
 resolver.run_case1 # => result for part one
 resolver.run_case2 # => result for part two
 ```
+
+## Day 7
+
+### Part One
+
+Help engineers repair a rope bridge by determining which equations can be solved using addition (+) and multiplication (*) operators. Operators are evaluated left-to-right, and numbers cannot be rearranged.
+
+Example:
+```
+190: 10 19
+3267: 81 40 27
+83: 17 5
+156: 15 6
+292: 11 6 16 20
+```
+Only three equations can be made true:
+- 190 = 10 * 19
+- 3267 = 81 + 40 * 27 (or 81 * 40 + 27)
+- 292 = 11 + 6 * 16 + 20
+
+Sum of valid test values: 3749
+
+### Part Two
+
+A third operator is discovered: concatenation (||) which combines digits (e.g., 12 || 345 = 12345). Using all three operators (+, *, ||), find all possible valid equations.
+
+Example using the same input, three additional equations become valid:
+- 156 = 15 || 6
+- 7290 = 6 * 8 || 6 * 15
+- 192 = 17 || 8 + 14
+
+New sum including all valid test values: 11387
+
+[Link to the challenge](https://adventofcode.com/2024/day/7)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day7/resolver.rb'
+resolver = Year2024::Day7::Resolver.new
+resolver.run_case1 # => result for part one
+resolver.run_case2 # => result for part two
+```
