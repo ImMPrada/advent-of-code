@@ -67,6 +67,8 @@ irb
 require './lib/year2024/day1/resolver.rb'
 resolver = Year2024::Day1::Resolver.new
 resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day1::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
@@ -111,6 +113,7 @@ irb
 require './lib/year2024/day2/resolver.rb'
 resolver = Year2024::Day2::Resolver.new
 resolver.run_case1 # => result for part one
+resolver = Year2024::Day2::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
@@ -148,6 +151,8 @@ Run the Resolver:
 require './lib/year2024/day3/resolver.rb'
 resolver = Year2024::Day3::Resolver.new
 resolver.run_case1 # => the result for part one
+
+resolver = Year2024::Day3::Resolver.new
 resolver.run_case2 # => the result for part two
 ```
 
@@ -200,6 +205,8 @@ irb
 require './lib/year2024/day4/resolver.rb'
 resolver = Year2024::Day4::Resolver.new
 resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day4::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
@@ -269,6 +276,8 @@ irb
 require './lib/year2024/day5/resolver.rb'
 resolver = Year2024::Day5::Resolver.new
 resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day5::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
@@ -313,5 +322,66 @@ irb
 require './lib/year2024/day7/resolver.rb'
 resolver = Year2024::Day7::Resolver.new
 resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day7::Resolver.new
 resolver.run_case2 # => result for part two
 ```
+
+## Day 8
+
+### Part One
+
+Help identify antinodes created by resonant frequencies from antennas. An antinode occurs when two antennas of the same frequency are perfectly aligned, with one being twice as far as the other.
+
+Example:
+```
+............
+........0...
+.....0......
+.......0....
+....0.......
+......A.....
+............
+............
+........A...
+.........A..
+............
+............
+```
+Total unique antinode locations: 14.
+
+### Part Two
+
+Account for resonant harmonics: antinodes now occur at any grid position exactly in line with at least two antennas of the same frequency, regardless of distance.
+
+Example (using the same input):
+```
+##....#....#
+.#.#....0...
+..#.#0....#.
+..##...0....
+....0....#..
+.#...#A....#
+...#..#.....
+#....#.#....
+..#.....A...
+....#....A..
+.#........#.
+...#......##
+```
+Total unique antinode locations with harmonics: 34.
+
+[Link to the challenge](https://adventofcode.com/2024/day/8)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day8/resolver.rb'
+resolver = Year2024::Day8::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day8::Resolver.new
+resolver.run_case2 # => result for part two
+```
+

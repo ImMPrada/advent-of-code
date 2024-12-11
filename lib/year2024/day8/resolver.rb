@@ -19,10 +19,20 @@ module Year2024
       end
 
       def run_case1
+        run
+      end
+
+      def run_case2
+        run(enable_resonance: true)
+      end
+
+      def run(enable_resonance: false)
         antinodes_positions = []
         antennas.each do |antenna|
-          antenna.add_projected_antinodes(map_reader)
+          antenna.add_projected_antinodes(map_reader, enable_resonance:)
           antinodes_positions << antenna.antinodes_positions
+
+          antinodes_positions << antenna.position if count_antennas_with_same_value(antenna) > 1 && enable_resonance
         end
 
         antinodes_positions.flatten(1).map(&:to_a).uniq.size
@@ -31,6 +41,10 @@ module Year2024
       private
 
       attr_reader :file_path
+
+      def count_antennas_with_same_value(antenna)
+        antennas.select { |item| item.value == antenna.value }.size
+      end
 
       def read_map
         file_content = File.read(file_path)
