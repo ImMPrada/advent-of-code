@@ -12,4 +12,12 @@ RSpec.describe Year2024::Day7::Resolver do
       expect(resolver.run_case1).to eq(expected_result)
     end
   end
+
+  describe '#run_case2' do
+    let(:expected_result) { 11_387 }
+
+    it 'returns the number of visited positions' do
+      expect(resolver.run_case2).to eq(expected_result)
+    end
+  end
 end

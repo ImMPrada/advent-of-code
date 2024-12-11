@@ -4,14 +4,16 @@ module Year2024
       FILE_PATH = 'lib/year2024/day7/input.txt'.freeze
       OPERATORS = %i[+ *].freeze
 
-      attr_reader :result, :numbers
+      attr_reader :result, :numbers, :operators
 
       def initialize(result, numbers)
         @result = result
         @numbers = numbers
+        @operators = OPERATORS
       end
 
-      def result_possible?
+      def result_possible?(custom_operators = nil)
+        @operators = custom_operators if custom_operators
         possible_results.include?(result)
       end
 
@@ -25,8 +27,9 @@ module Year2024
           while queue.any?
             current = queue.shift
 
-            OPERATORS.each do |operator|
-              next_queue << current.send(operator, number)
+            operators.each do |operator|
+              operation = OPERATORS.include?(operator) ? current.send(operator, number) : operator.call(current, number)
+              next_queue << operation
             end
           end
 
