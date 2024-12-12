@@ -1,6 +1,8 @@
+require_relative 'no_more_blocks_error'
+
 module Year2024
   module Day9
-    class Disk
+    class Disk # rubocop:disable Metrics/ClassLength
       FREE_SPACE = '.'.freeze
 
       attr_reader :map, :file_id, :empty_blocks_indexes, :filled_blocks_indexes, :blocks
@@ -34,7 +36,7 @@ module Year2024
         puts "filled_blocks_indexes: #{filled_blocks_indexes}"
       end
 
-      def move_all_filled_blocks
+      def move_all_filled_blocks(fragmented: true)
         puts 'moving all filled blocks...'
         string = stringify_blocks
 
@@ -42,18 +44,22 @@ module Year2024
           puts "string: #{string}"
           break if ready?(string)
 
-          move_filled_block
+          move_filled_block(fragmented:)
+
           string = stringify_blocks
+        rescue NoMoreBlocksError
+          puts 'No more blocks to move'
+          break
         end
 
         puts 'Done!'
       end
 
-      def move_filled_block
+      def move_filled_block(fragmented: true)
         return if empty_blocks_indexes.empty?
+        return fragmented_move_filled_block if fragmented
 
-        run_moving_filled_blocks_loop
-        filled_blocks_indexes.pop
+        compacted_move_filled_block
       end
 
       def check_sum
@@ -74,6 +80,27 @@ module Year2024
       end
 
       private
+
+      def fragmented_move_filled_block
+        run_moving_filled_blocks_loop
+        filled_blocks_indexes.pop
+      end
+
+      def compacted_move_filled_block
+        filled_block_index = filled_blocks_indexes.pop
+        raise NoMoreBlocksError if filled_block_index.nil?
+
+        filled_block = blocks[filled_block_index]
+
+        empty_blocks_indexes.each do |empty_block_index|
+          break if empty_block_index >= filled_block_index
+
+          empty_block = blocks[empty_block_index]
+          next unless block_fits_in_block?(filled_block, empty_block)
+
+          fill_empty_block(filled_block, empty_block)
+        end
+      end
 
       def add_file_id(value)
         filled_blocks_indexes << blocks.size
@@ -140,6 +167,21 @@ module Year2024
 
       def ready?(string_blocks)
         string_blocks.match?(/^\d+\.+$/) || string_blocks.match?(/^\d+$/)
+      end
+
+      def block_fits_in_block?(block_a, block_b)
+        block_b.count(FREE_SPACE) >= block_a.size
+      end
+
+      def fill_empty_block(block_a, empty_block)
+        empty_block_index = empty_block.index(FREE_SPACE)
+
+        block_a.each_with_index do |value, index|
+          empty_block[empty_block_index] = value
+          block_a[index] = FREE_SPACE
+
+          empty_block_index += 1
+        end
       end
     end
   end

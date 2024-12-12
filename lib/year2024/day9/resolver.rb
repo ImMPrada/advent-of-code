@@ -18,6 +18,12 @@ module Year2024
         disk.check_sum
       end
 
+      def run_case2
+        disk.read_map
+        disk.move_all_filled_blocks(fragmented: false)
+        disk.check_sum
+      end
+
       private
 
       attr_reader :file_path
