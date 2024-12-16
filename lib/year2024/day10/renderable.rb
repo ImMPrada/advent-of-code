@@ -4,6 +4,7 @@ module Year2024
   module Day10
     module Renderable
       CELL_SIZE = 15 # Size of each cell in pixels
+      HEIGHT_HEADLINE = 9.0
 
       def render(hiking_trails_cells = [])
         create_window
@@ -28,7 +29,7 @@ module Year2024
 
       def render_cells_height
         data.each do |cell|
-          intensity = (cell.height / 9.0)
+          intensity = (cell.height / HEIGHT_HEADLINE)
 
           Square.new(
             x: cell.x_coord * CELL_SIZE,
@@ -41,7 +42,7 @@ module Year2024
 
       def render_trails(hiking_trails_cells)
         hiking_trails_cells.each do |cell|
-          intensity = (cell.height / 9.0)
+          intensity = (cell.height / HEIGHT_HEADLINE)
 
           Square.new(
             x: cell.x_coord * CELL_SIZE,

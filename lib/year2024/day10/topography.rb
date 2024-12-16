@@ -9,6 +9,9 @@ module Year2024
 
       attr_reader :data, :lowest_point_heights
 
+      HEIGHT_HEADLINE = 9.0
+      LOWEST_HEIGHT = 0
+
       def initialize(file_lines)
         @file_lines = file_lines
         build_data
@@ -21,7 +24,7 @@ module Year2024
       def build_data
         rows = file_lines.length
         cols = file_lines.first.length
-        lowest_point = 0
+        lowest_point = LOWEST_HEIGHT
         @lowest_point_heights = []
 
         @data = Matrix.build(rows, cols) do |y, x|

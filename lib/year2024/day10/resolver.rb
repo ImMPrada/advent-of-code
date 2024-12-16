@@ -53,11 +53,11 @@ module Year2024
       end
 
       def uniq_trailhead_cells(hiking_trail)
-        hiking_trail.cells.select { |trail_cell| trail_cell.height == 9 }.uniq
+        hiking_trail.cells.select { |trail_cell| trail_cell.height == Topography::HEIGHT_HEADLINE }.uniq
       end
 
       def trailhead_cells(hiking_trail)
-        hiking_trail.cells.select { |trail_cell| trail_cell.height == 9 }
+        hiking_trail.cells.select { |trail_cell| trail_cell.height == Topography::HEIGHT_HEADLINE }
       end
     end
   end
