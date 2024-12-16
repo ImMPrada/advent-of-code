@@ -435,8 +435,5 @@ resolver.run_case1 # => result for part one
 
 resolver = Year2024::Day10::Resolver.new
 resolver.run_case2 # => result for part two
-
-# To visualize the topography:
-resolver.visualize
 ```
 

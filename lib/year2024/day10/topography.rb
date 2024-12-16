@@ -1,12 +1,9 @@
 require 'matrix'
-require_relative 'renderable'
 require_relative 'cell'
 
 module Year2024
   module Day10
     class Topography
-      include Renderable
-
       attr_reader :data, :lowest_point_heights
 
       HEIGHT_HEADLINE = 9.0
