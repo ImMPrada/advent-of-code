@@ -21,30 +21,7 @@ module Year2024
       end
 
       def run_case2
-        run_case1
-        looping_positions = []
-        visited_positions = guard.visited_positions.dup
-
-        total = visited_positions[1..].size
-        count = 0.0
-
-        visited_positions[1..].each do |position|
-          create_guard
-          lock_position(position)
-          puts "count: #{(count * 100.0 / total).round(2)}%"
-          guard.find_exit(map)
-        rescue LoopError
-          puts 'a loop!'
-          looping_positions << position
-        rescue GuardNotFoundError
-          puts 'a guard not found!'
-          break
-        ensure
-          @map = build_map
-          count += 1
-        end
-
-        looping_positions.map { |position| [position.row, position.col] }.uniq.size
+        puts 'not ready'
       end
 
       private
