@@ -11,6 +11,7 @@ module Year2024
         new_list = []
 
         list.each do |stone|
+          puts "Blinking stone #{stone.number}"
           blink_stone(stone, new_list)
         end
 
@@ -31,11 +32,13 @@ module Year2024
       private
 
       def apply_rule1(stone, new_list)
+        puts "Applying rule 1 to stone #{stone.number}"
         stone.apply_rule1
         new_list << stone
       end
 
       def apply_rule2(stone, new_list)
+        puts "Applying rule 2 to stone #{stone.number}"
         number_string = stone.number.to_s
 
         left_side = number_string[0...number_string.size / 2]
@@ -46,6 +49,7 @@ module Year2024
       end
 
       def apply_rule3(stone, new_list)
+        puts "Applying rule 3 to stone #{stone.number}"
         stone.apply_rule3
         new_list << stone
       end

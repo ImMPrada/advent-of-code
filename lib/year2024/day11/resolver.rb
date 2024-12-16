@@ -14,12 +14,20 @@ module Year2024
         build_stones_list(line)
       end
 
-      def run_case1(blinking_times)
+      def run_case1
+        run_for(25)
+        stones.to_a.size
+      end
+
+      def run_case2
+        run_for(75)
+        stones.to_a.size
+      end
+
+      def run_for(blinking_times)
         blinking_times.times do
           stones.blink
         end
-
-        stones.to_a.size
       end
 
       private
