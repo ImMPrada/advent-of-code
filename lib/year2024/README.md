@@ -440,3 +440,54 @@ resolver = Year2024::Day9::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
+## Day 10
+
+### Part One
+
+Help a reindeer map hiking trails in a Lava Production Facility using a topographic map. Valid hiking trails must start at height 0, end at height 9, and increase by exactly 1 at each step (only up, down, left, or right moves allowed). A trailhead's score is the number of height-9 positions reachable from that starting point.
+
+Example:
+```
+89010123
+78121874
+87430965
+96549874
+45678903
+32019012
+01329801
+10456732
+```
+This map has 9 trailheads with scores: 5, 6, 5, 3, 1, 3, 5, 3, and 5.
+Sum of all trailhead scores: 36.
+
+### Part Two
+
+Calculate each trailhead's rating, which is the number of distinct possible hiking trails starting from that position. A trail is distinct if it follows a different path, even if it reaches the same endpoint.
+
+Using the same example:
+```
+89010123
+78121874
+87430965
+96549874
+45678903
+32019012
+01329801
+10456732
+```
+The trailheads have ratings: 20, 24, 10, 4, 1, 4, 5, 8, and 5.
+Sum of all trailhead ratings: 81.
+
+[Link to the challenge](https://adventofcode.com/2024/day/10)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day10/resolver.rb'
+resolver = Year2024::Day10::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day10::Resolver.new
+resolver.run_case2 # => result for part two
+```
