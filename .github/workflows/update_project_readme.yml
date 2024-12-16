@@ -60,8 +60,8 @@ jobs:
             if (( DAY > 31 )); then break; fi
           done
 
-          awk -v table="$TABLE" '/## December 2024 Calendar/{print; print table; next}1' README.md > README_TEMP.md
-          mv README_TEMP.md README.md
+          # Use sed to replace the placeholder with the new calendar
+          sed "s/<!-- CALENDAR_PLACEHOLDER -->/$TABLE/g" README.template.md > README.md
           echo "README actualizado con la tabla generada."
 
       - name: Commit and push changes

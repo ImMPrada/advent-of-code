@@ -67,6 +67,8 @@ irb
 require './lib/year2024/day1/resolver.rb'
 resolver = Year2024::Day1::Resolver.new
 resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day1::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
@@ -111,6 +113,7 @@ irb
 require './lib/year2024/day2/resolver.rb'
 resolver = Year2024::Day2::Resolver.new
 resolver.run_case1 # => result for part one
+resolver = Year2024::Day2::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
@@ -148,6 +151,8 @@ Run the Resolver:
 require './lib/year2024/day3/resolver.rb'
 resolver = Year2024::Day3::Resolver.new
 resolver.run_case1 # => the result for part one
+
+resolver = Year2024::Day3::Resolver.new
 resolver.run_case2 # => the result for part two
 ```
 
@@ -200,6 +205,8 @@ irb
 require './lib/year2024/day4/resolver.rb'
 resolver = Year2024::Day4::Resolver.new
 resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day4::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
@@ -269,5 +276,218 @@ irb
 require './lib/year2024/day5/resolver.rb'
 resolver = Year2024::Day5::Resolver.new
 resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day5::Resolver.new
+resolver.run_case2 # => result for part two
+```
+
+## Day 7
+
+### Part One
+
+Help engineers repair a rope bridge by determining which equations can be solved using addition (+) and multiplication (*) operators. Operators are evaluated left-to-right, and numbers cannot be rearranged.
+
+Example:
+```
+190: 10 19
+3267: 81 40 27
+83: 17 5
+156: 15 6
+292: 11 6 16 20
+```
+Only three equations can be made true:
+- 190 = 10 * 19
+- 3267 = 81 + 40 * 27 (or 81 * 40 + 27)
+- 292 = 11 + 6 * 16 + 20
+
+Sum of valid test values: 3749
+
+### Part Two
+
+A third operator is discovered: concatenation (||) which combines digits (e.g., 12 || 345 = 12345). Using all three operators (+, *, ||), find all possible valid equations.
+
+Example using the same input, three additional equations become valid:
+- 156 = 15 || 6
+- 7290 = 6 * 8 || 6 * 15
+- 192 = 17 || 8 + 14
+
+New sum including all valid test values: 11387
+
+[Link to the challenge](https://adventofcode.com/2024/day/7)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day7/resolver.rb'
+resolver = Year2024::Day7::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day7::Resolver.new
+resolver.run_case2 # => result for part two
+```
+
+## Day 8
+
+### Part One
+
+Help identify antinodes created by resonant frequencies from antennas. An antinode occurs when two antennas of the same frequency are perfectly aligned, with one being twice as far as the other.
+
+Example:
+```
+............
+........0...
+.....0......
+.......0....
+....0.......
+......A.....
+............
+............
+........A...
+.........A..
+............
+............
+```
+Total unique antinode locations: 14.
+
+### Part Two
+
+Account for resonant harmonics: antinodes now occur at any grid position exactly in line with at least two antennas of the same frequency, regardless of distance.
+
+Example (using the same input):
+```
+##....#....#
+.#.#....0...
+..#.#0....#.
+..##...0....
+....0....#..
+.#...#A....#
+...#..#.....
+#....#.#....
+..#.....A...
+....#....A..
+.#........#.
+...#......##
+```
+Total unique antinode locations with harmonics: 34.
+
+[Link to the challenge](https://adventofcode.com/2024/day/8)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day8/resolver.rb'
+resolver = Year2024::Day8::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day8::Resolver.new
+resolver.run_case2 # => result for part two
+```
+
+## Day 9
+
+### Part One
+
+Help an amphipod compact files on a disk by moving blocks one at a time. The disk map uses alternating digits to represent file lengths and free space lengths. Files have IDs based on their initial order (starting from 0).
+
+Example:
+```
+2333133121414131402
+```
+Represents:
+```
+00...111...2...333.44.5555.6666.777.888899
+```
+
+Move blocks from the end to leftmost free space until no gaps remain. Calculate checksum by multiplying each block's position with its file ID and summing the results.
+
+Example process:
+```
+00...111...2...333.44.5555.6666.777.888899
+009..111...2...333.44.5555.6666.777.88889.
+0099.111...2...333.44.5555.6666.777.8888..
+...
+0099811188827773336446555566..............
+```
+Checksum: 1928
+
+### Part Two
+
+Instead of moving individual blocks, move entire files to the leftmost available free space that can fit them. Process files in decreasing ID order, moving each file once if possible.
+
+Same example, different process:
+```
+00...111...2...333.44.5555.6666.777.888899
+0099.111...2...333.44.5555.6666.777.8888..
+0099.1117772...333.44.5555.6666.....8888..
+0099.111777244.333....5555.6666.....8888..
+00992111777.44.333....5555.6666.....8888..
+```
+New checksum: 2858
+
+[Link to the challenge](https://adventofcode.com/2024/day/9)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day9/resolver.rb'
+resolver = Year2024::Day9::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day9::Resolver.new
+resolver.run_case2 # => result for part two
+```
+
+## Day 10
+
+### Part One
+
+Help a reindeer map hiking trails in a Lava Production Facility using a topographic map. Valid hiking trails must start at height 0, end at height 9, and increase by exactly 1 at each step (only up, down, left, or right moves allowed). A trailhead's score is the number of height-9 positions reachable from that starting point.
+
+Example:
+```
+89010123
+78121874
+87430965
+96549874
+45678903
+32019012
+01329801
+10456732
+```
+This map has 9 trailheads with scores: 5, 6, 5, 3, 1, 3, 5, 3, and 5.
+Sum of all trailhead scores: 36.
+
+### Part Two
+
+Calculate each trailhead's rating, which is the number of distinct possible hiking trails starting from that position. A trail is distinct if it follows a different path, even if it reaches the same endpoint.
+
+Using the same example:
+```
+89010123
+78121874
+87430965
+96549874
+45678903
+32019012
+01329801
+10456732
+```
+The trailheads have ratings: 20, 24, 10, 4, 1, 4, 5, 8, and 5.
+Sum of all trailhead ratings: 81.
+
+[Link to the challenge](https://adventofcode.com/2024/day/10)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day10/resolver.rb'
+resolver = Year2024::Day10::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day10::Resolver.new
 resolver.run_case2 # => result for part two
 ```
