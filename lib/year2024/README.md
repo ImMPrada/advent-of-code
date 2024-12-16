@@ -385,3 +385,58 @@ resolver = Year2024::Day8::Resolver.new
 resolver.run_case2 # => result for part two
 ```
 
+## Day 9
+
+### Part One
+
+Help an amphipod compact files on a disk by moving blocks one at a time. The disk map uses alternating digits to represent file lengths and free space lengths. Files have IDs based on their initial order (starting from 0).
+
+Example:
+```
+2333133121414131402
+```
+Represents:
+```
+00...111...2...333.44.5555.6666.777.888899
+```
+
+Move blocks from the end to leftmost free space until no gaps remain. Calculate checksum by multiplying each block's position with its file ID and summing the results.
+
+Example process:
+```
+00...111...2...333.44.5555.6666.777.888899
+009..111...2...333.44.5555.6666.777.88889.
+0099.111...2...333.44.5555.6666.777.8888..
+...
+0099811188827773336446555566..............
+```
+Checksum: 1928
+
+### Part Two
+
+Instead of moving individual blocks, move entire files to the leftmost available free space that can fit them. Process files in decreasing ID order, moving each file once if possible.
+
+Same example, different process:
+```
+00...111...2...333.44.5555.6666.777.888899
+0099.111...2...333.44.5555.6666.777.8888..
+0099.1117772...333.44.5555.6666.....8888..
+0099.111777244.333....5555.6666.....8888..
+00992111777.44.333....5555.6666.....8888..
+```
+New checksum: 2858
+
+[Link to the challenge](https://adventofcode.com/2024/day/9)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day9/resolver.rb'
+resolver = Year2024::Day9::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day9::Resolver.new
+resolver.run_case2 # => result for part two
+```
+
