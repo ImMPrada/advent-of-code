@@ -31,10 +31,6 @@ module Year2024
         end.sum
       end
 
-      def visualize
-        topography.render
-      end
-
       def create_file
         File.open(OUTPUT_PATH, 'w') do |file|
           (topography.data.row_count - 1).downto(0) do |row|
