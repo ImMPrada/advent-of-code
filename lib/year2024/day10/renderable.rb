@@ -27,7 +27,7 @@ module Year2024
       end
 
       def render_cells_height
-        data.each_with_index do |cell, row, col|
+        data.each do |cell|
           intensity = (cell.height / 9.0)
 
           Square.new(
