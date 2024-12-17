@@ -11,13 +11,20 @@ module Year2024
       end
 
       def group_cells(garden)
+        cells_amount = garden.cells.count
+        cells_count = 0.00
+
         garden.cells.each do |cell|
+          puts "cells count: #{(cells_count * 100 / cells_amount).round(2)}%"
+          cells_count += 1
           next unless cell.region_name == name
           next if cell.grouped
 
           @roots << cell
           group_cell(cell, garden)
         end
+
+        puts "cells count: #{(cells_count * 100 / cells_amount).round(2)}%"
       end
 
       def root_cells(root)
@@ -25,10 +32,12 @@ module Year2024
         cells = []
 
         while queue.any?
+          puts "queue: #{queue.size}"
           current = queue.shift
           cells << current
           neighbors = current.neighbors
           neighbors.each { |neighbor| queue << neighbor unless cells.include?(neighbor) }
+          queue.uniq!
         end
 
         cells.uniq
@@ -61,7 +70,7 @@ module Year2024
           puts "queue: #{queue.size}"
           current = queue.shift
           current.add_all_neighbors(garden)
-          current.neighbors.each { |neighbor| queue << neighbor unless neighbor.grouped }
+          current.neighbors.each { |neighbor| queue << neighbor unless neighbor.grouped || queue.include?(neighbor) }
         end
       end
     end

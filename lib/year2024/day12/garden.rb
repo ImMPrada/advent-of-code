@@ -1,9 +1,13 @@
 require 'matrix'
+require_relative 'region'
 require_relative 'cell'
+require_relative 'renderable'
 
 module Year2024
   module Day12
     class Garden
+      include Renderable
+
       attr_reader :cells, :regions_names, :regions
 
       def initialize(file_lines)
@@ -12,20 +16,23 @@ module Year2024
         @regions_names = []
 
         build_cells
+        render
       end
 
       def build_regions
         @regions = regions_names.map do |name|
-          puts "grouping #{name}"
           region = Region.new(name)
           region.group_cells(self)
           region
         end
+
+        puts "regions size: #{regions.size}"
       end
 
       def regions_prices
         prices = {}
         regions.each do |region|
+          puts "region: #{region.name}"
           prices[region.name] = region.price
         end
 
