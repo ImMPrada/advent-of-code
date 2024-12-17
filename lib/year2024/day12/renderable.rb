@@ -1,6 +1,6 @@
 module Year2024
   module Day12
-    module Renderable
+    module Renderable # rubocop:disable Metrics/ModuleLength
       COLORS = {
         'A' => '#FF0000', # red
         'B' => '#0000FF', # blue

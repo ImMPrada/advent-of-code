@@ -21,6 +21,10 @@ module Year2024
         prices.values.sum
       end
 
+      def run_case2
+        puts 'not implemented'
+      end
+
       def visualize
         garden.render
       end
