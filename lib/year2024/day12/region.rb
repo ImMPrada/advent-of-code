@@ -34,6 +34,24 @@ module Year2024
         cells.uniq
       end
 
+      def price
+        sum = 0
+
+        roots.each do |root|
+          perimeter = 0
+          area = 0
+
+          root_cells(root).each do |cell|
+            perimeter += cell.perimeter
+            area += 1
+          end
+
+          sum += perimeter * area
+        end
+
+        sum
+      end
+
       private
 
       def group_cell(cell, garden)

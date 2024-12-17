@@ -126,4 +126,14 @@ RSpec.describe Year2024::Day12::Region do
       end
     end
   end
+
+  describe '#price' do
+    let(:region_name) { 'I' }
+
+    before { region.group_cells(garden) }
+
+    it 'returns the correct price' do
+      expect(region.price).to eq(340)
+    end
+  end
 end
