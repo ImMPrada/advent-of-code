@@ -26,12 +26,15 @@ module Year2024
         cost
       end
 
-      def min_cost_for_machine(machine)
+      def run_case2
+        puts 'TODO'
+      end
+
+      def min_cost_for_machine(machine, max_iterations = 100)
         button_a = machine[:button_a]
         button_b = machine[:button_b]
         prize = machine[:prize]
         min_cost = Float::INFINITY
-        max_iterations = 100
 
         max_iterations.downto(0).each do |iteration_a|
           max_iterations.downto(1).each do |iteration_b|

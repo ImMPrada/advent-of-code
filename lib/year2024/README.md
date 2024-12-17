@@ -548,3 +548,51 @@ resolver.run_case2 # => result for part two
 # To visualize the garden:
 resolver.visualize
 ```
+
+## Day 13
+
+### Part One
+
+Help win prizes from unusual claw machines that have two buttons (A and B) instead of a joystick:
+- Button A costs 3 tokens and moves the claw by specific X,Y amounts
+- Button B costs 1 token and moves the claw by different X,Y amounts
+- Must position claw exactly above prize coordinates
+
+Example:
+```
+Button A: X+94, Y+34
+Button B: X+22, Y+67
+Prize: X=8400, Y=5400
+```
+
+For this machine:
+- Pressing A 80 times and B 40 times reaches the prize
+- Cost: (80 × 3) + (40 × 1) = 280 tokens
+
+Find the minimum tokens needed to win all possible prizes, assuming no more than 100 button presses per machine.
+
+### Part Two
+
+Due to a unit conversion error, add 10000000000000 to both X and Y coordinates of every prize. Same example becomes:
+
+```
+Button A: X+94, Y+34
+Button B: X+22, Y+67
+Prize: X=10000000008400, Y=10000000005400
+```
+
+Now requires many more than 100 presses to win prizes. Calculate new minimum token cost.
+
+[Link to the challenge](https://adventofcode.com/2024/day/13)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day13/resolver.rb'
+resolver = Year2024::Day13::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day13::Resolver.new
+resolver.run_case2 # => result for part two
+```
