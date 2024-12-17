@@ -491,3 +491,60 @@ resolver.run_case1 # => result for part one
 resolver = Year2024::Day10::Resolver.new
 resolver.run_case2 # => result for part two
 ```
+
+## Day 12
+
+### Part One
+
+Help the Elves calculate fencing costs for their garden regions. Each letter in the map represents a plant type, and connected plots (horizontally or vertically) of the same type form a region. Calculate the total fencing cost where each region's cost is its area × perimeter.
+
+Example:
+```
+AAAA
+BBCD
+BBCC
+EEEC
+```
+
+Region calculations:
+- Region A: area 4 × perimeter 10 = 40
+- Region B: area 4 × perimeter 8 = 32
+- Region C: area 4 × perimeter 10 = 40
+- Region D: area 1 × perimeter 4 = 4
+- Region E: area 3 × perimeter 8 = 24
+
+Total cost: 140
+
+### Part Two
+
+With bulk discount, use number of sides instead of perimeter length. Each straight section counts as one side, regardless of length. For example, an E-shaped region:
+
+```
+EEEEE
+EXXXX
+EEEEE
+EXXXX
+EEEEE
+```
+
+The E-shaped region has:
+- Area: 17 plots
+- Sides: 12 sections
+- Price: 17 × 12 = 204
+
+[Link to the challenge](https://adventofcode.com/2024/day/12)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day12/resolver.rb'
+resolver = Year2024::Day12::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day12::Resolver.new
+resolver.run_case2 # => result for part two
+
+# To visualize the garden:
+resolver.visualize
+```
