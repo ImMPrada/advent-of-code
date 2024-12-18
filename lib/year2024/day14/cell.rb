@@ -1,12 +1,13 @@
 module Year2024
   module Day14
     class Cell
-      attr_reader :x, :y, :occupying
+      attr_reader :x, :y, :occupying, :in_quadrant
 
-      def initialize(x_coord:, y_coord:)
+      def initialize(x_coord:, y_coord:, in_quadrant:)
         @x = x_coord
         @y = y_coord
         @occupying = []
+        @in_quadrant = in_quadrant
       end
 
       def add_occupant(occupant)

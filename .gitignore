@@ -57,3 +57,5 @@ build-iPhoneSimulator/
 
 # ignore all .DS_Store files
 .DS_Store
+
+/visualizations/**/*.html
