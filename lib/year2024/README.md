@@ -596,3 +596,55 @@ resolver.run_case1 # => result for part one
 resolver = Year2024::Day13::Resolver.new
 resolver.run_case2 # => result for part two
 ```
+
+## Day 14
+
+### Part One
+
+Help predict robot movements in EBHQ's bathroom lobby. Robots move in straight lines and teleport when hitting edges. Each robot has:
+- Position (p=x,y): distance from left and top walls
+- Velocity (v=x,y): movement in tiles per second
+
+Example:
+```
+p=0,4 v=3,-3
+p=6,3 v=-1,-3
+p=10,3 v=-1,2
+```
+
+After 100 seconds, count robots in each quadrant (ignoring middle lines) and multiply the counts:
+```
+..... 2..1.
+..... .....
+1.... .....
+           
+..... .....
+...12 .....
+.1... 1....
+```
+Quadrants have 1, 3, 4, and 1 robots.
+Safety factor = 1 × 3 × 4 × 1 = 12
+
+### Part Two
+
+Find the Easter egg: the fewest seconds needed for robots to arrange into a Christmas tree pattern.
+
+[Link to the challenge](https://adventofcode.com/2024/day/14)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day14/resolver.rb'
+resolver = Year2024::Day14::Resolver.new
+resolver.run_case1(100, visualize: true) # => result for part one with visualization
+resolver.run_case1(100) # => result for part one without visualization
+
+resolver = Year2024::Day14::Resolver.new
+resolver.run_case2 # => result for part two
+
+# To visualize at any time:
+resolver.visualize('custom_title')
+```
+
+Visualizations are saved in `visualizations/day14/` directory.

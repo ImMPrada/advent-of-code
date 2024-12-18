@@ -3,7 +3,7 @@ module Year2024
     class Cell
       attr_reader :x, :y, :occupying, :in_quadrant
 
-      def initialize(x_coord:, y_coord:, in_quadrant:)
+      def initialize(x_coord:, y_coord:, in_quadrant: false)
         @x = x_coord
         @y = y_coord
         @occupying = []

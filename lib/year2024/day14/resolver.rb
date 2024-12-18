@@ -39,6 +39,10 @@ module Year2024
         sum_of_occupants.reduce(:*)
       end
 
+      def run_case2
+        # TODO: Implement case 2
+      end
+
       def visualize(title)
         map.render(title)
       end
@@ -64,8 +68,8 @@ module Year2024
         Velocity.new(x_component: vx, y_component: vy)
       end
 
-      def map_cell(p)
-        x, y = p.split('=').last.split(',').map(&:to_i)
+      def map_cell(p_string)
+        x, y = p_string.split('=').last.split(',').map(&:to_i)
         puts "x: #{x}, y: #{y}"
         map[x, y]
       end

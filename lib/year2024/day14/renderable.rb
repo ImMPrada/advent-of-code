@@ -1,8 +1,8 @@
 module Year2024
   module Day14
-    module Renderable
+    module Renderable # rubocop:disable Metrics/ModuleLength
       def render(title = nil)
-        file_name = title ? "./visualizations/day14/map_visualization_#{title}.html" : './visualizations/day14/map_visualization.html'
+        file_name = "./visualizations/day14/map_visualization_#{title}.html"
         html = generate_html
         File.write(file_name, html)
         puts "Visualization saved to #{file_name}"
@@ -126,17 +126,17 @@ module Year2024
         HTML
       end
 
-      def generate_cells_html
+      def generate_cells_html # rubocop:disable Metrics/MethodLength
         cells.to_a.map do |row|
           row.map do |cell|
             occupants = cell.occupying.size
-            cell_class = if occupants > 0
-                          'cell occupied'
-                        elsif cell.in_quadrant
-                          'cell in-quadrant'
-                        else
-                          'cell'
-                        end
+            cell_class = if occupants.positive?
+                           'cell occupied'
+                         elsif cell.in_quadrant
+                           'cell in-quadrant'
+                         else
+                           'cell'
+                         end
 
             next <<~HTML if occupants.zero?
               <div class="#{cell_class}"></div>
