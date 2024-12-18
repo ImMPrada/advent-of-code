@@ -3,9 +3,9 @@ module Year2024
     class Velocity
       attr_reader :x, :y
 
-      def initialize(x_vector:, y_vector:)
-        @x = x_vector
-        @y = y_vector
+      def initialize(x_component:, y_component:)
+        @x = x_component
+        @y = y_component
       end
 
       def to_a
