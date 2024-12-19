@@ -17,6 +17,18 @@ module Year2024
         occupy_cell
       end
 
+      def move(map, direction)
+        return unless can_move?(map, direction)
+
+        new_cell = target_cell(map, direction)
+        new_cell_occupant = new_cell.occupant
+        new_cell_occupant&.move(map, direction)
+
+        release_cell
+        @cell = new_cell
+        occupy_cell
+      end
+
       def can_move?(map, direction)
         new_cell = target_cell(map, direction)
 
@@ -31,7 +43,7 @@ module Year2024
       end
 
       def release_cell
-        cell.clear(self)
+        cell.clear
       end
 
       private

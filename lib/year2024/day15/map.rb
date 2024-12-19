@@ -28,7 +28,6 @@ module Year2024
 
         create_walls
         create_boxes
-        create_robot if starting_robot_cell
       end
 
       def [](x_coord, y_coord)
@@ -47,10 +46,6 @@ module Year2024
         boxes_cells.each do |cell|
           Box.new(cell:)
         end
-      end
-
-      def create_robot
-        Robot.new(cell: starting_robot_cell)
       end
     end
   end
