@@ -3,10 +3,13 @@ require_relative 'wall'
 require_relative 'box'
 require_relative 'robot'
 require 'matrix'
+require_relative 'renderable'
 
 module Year2024
   module Day15
     class Map
+      include Renderable
+
       attr_reader :cells, :starting_robot_cell, :walls_cells, :boxes_cells
 
       EMPTY_CELL_CHARS = %w[. @].freeze

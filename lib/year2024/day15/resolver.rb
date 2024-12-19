@@ -19,8 +19,32 @@ module Year2024
         @robot = Robot.new(cell: @map.starting_robot_cell)
       end
 
-      def run_case1
+      def run_case1(visualize: false)
+        map.render('initial') if visualize
+        move_robot(visualize)
+        map.render('final') if visualize
+
+        sum_boxes_gps
+      end
+
+      def run_case2
         puts 'TODO'
+      end
+
+      private
+
+      def move_robot(visualize)
+        directions.each_with_index do |direction, index|
+          puts "Moving #{direction}"
+          robot.move(map, direction)
+          map.render("step_#{index + 1}") if ((index + 1) % 10).zero? && visualize
+        end
+      end
+
+      def sum_boxes_gps
+        boxes_cells = map.cells.select { |cell| cell.occupant&.symbol == Cell::BOX }
+        boxes_gps = boxes_cells.map { |cell| cell.x + 100 * cell.y }
+        boxes_gps.sum
       end
     end
   end

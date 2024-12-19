@@ -57,11 +57,11 @@ module Year2024
       end
 
       def move_up(map)
-        map[cell.x, cell.y + 1]
+        map[cell.x, cell.y - 1]
       end
 
       def move_down(map)
-        map[cell.x, cell.y - 1]
+        map[cell.x, cell.y + 1]
       end
 
       def move_left(map)

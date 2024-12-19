@@ -7,8 +7,7 @@ RSpec.describe Year2024::Day15::Resolver do
 
   describe '#run_case1' do
     it 'returns the correct cost' do
-      byebug
-      expect(resolver.run_case1(100)).to eq(12)
+      expect(resolver.run_case1).to eq(10_092)
     end
   end
 end
