@@ -1,0 +1,71 @@
+name: On PR Merge to 2024
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  complete_date_at_2024_calendar:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.base.ref, '2024') && contains(github.event.pull_request.head.ref, 'day-')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write 
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update calendar.json
+        run: |
+          set -e
+          DAY=$(echo "${{ github.head_ref }}" | grep -oE '[0-9]+$')
+          YEAR=$(echo "${{ github.event.pull_request.base.ref }}" | grep -oE '20[0-9]{2}')
+          echo "DEBUG: DAY=$DAY, YEAR=$YEAR"
+
+          jq ".\"2024\".\"December\".days.\"$DAY\" = \"✅\"" calendar.json > calendar_temp.json && mv calendar_temp.json calendar.json
+          echo "DEBUG: JSON actualizado:"
+          cat calendar.json
+
+      - name: Regenerate README.md
+        run: |
+          set -e
+          JSON=$(cat calendar.json)
+          START_DAY=$(echo "$JSON" | jq -r ".\"2024\".\"December\".start_day")
+          DAYS=$(echo "$JSON" | jq -r ".\"2024\".\"December\".days")
+
+          declare -A WEEKDAYS=( ["Sun"]=0 ["Mon"]=1 ["Tue"]=2 ["Wed"]=3 ["Thu"]=4 ["Fri"]=5 ["Sat"]=6 )
+          START_INDEX=${WEEKDAYS[$START_DAY]}
+          echo "DEBUG: START_INDEX=$START_INDEX, START_DAY=$START_DAY"
+
+          TABLE="| Sun | Mon | Tue | Wed | Thu | Fri | Sat |\n|-----|-----|-----|-----|-----|-----|-----|\n"
+          DAY=1
+          for WEEK in {1..6}; do
+            ROW="|"
+            for i in {0..6}; do
+              if (( WEEK == 1 && i < START_INDEX )) || (( DAY > 31 )); then
+                ROW="$ROW     |"
+              else
+                STATUS=$(echo "$DAYS" | jq -r ".\"$DAY\"")
+                ROW="$ROW $DAY $STATUS |"
+                ((DAY++))
+              fi
+            done
+            TABLE="$TABLE$ROW\n"
+            if (( DAY > 31 )); then break; fi
+          done
+
+          # Use sed to replace the placeholder with the new calendar
+          sed "s/<!-- CALENDAR_PLACEHOLDER -->/$TABLE/g" README.template.md > README.md
+          echo "README actualizado con la tabla generada."
+
+      - name: Commit and push changes
+        run: |
+          git add README.md calendar.json
+          git commit -m "Update README and calendar.json after PR merge ${{github.event.pull_request.head.ref}}"
+          git push origin ${{ github.ref }}
