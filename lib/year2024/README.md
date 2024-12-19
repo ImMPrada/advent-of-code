@@ -648,3 +648,75 @@ resolver.visualize('custom_title')
 ```
 
 Visualizations are saved in `visualizations/day14/` directory.
+
+## Day 15
+
+### Part One
+
+Help lanternfish predict a malfunctioning warehouse robot's movements. The warehouse contains:
+- Walls (#)
+- Boxes (O)
+- Robot (@)
+- Empty spaces (.)
+
+The robot follows movement instructions (^v<>) and can push boxes, but neither robot nor boxes can move through walls.
+
+Example:
+```
+########
+#..O.O.#
+##@.O..#
+#...O..#
+#.#.O..#
+#...O..#
+#......#
+########
+```
+
+Calculate sum of boxes' GPS coordinates after robot finishes moving:
+- GPS = (distance from top × 100) + distance from left
+- Example: box at row 1, column 4 has GPS = (1 × 100) + 4 = 104
+
+### Part Two
+
+The warehouse is twice as wide, with double-width boxes:
+- Walls (#) become (##)
+- Boxes (O) become ([])
+- Empty (.) become (..)
+- Robot (@) becomes (@.)
+
+Example:
+```
+####################
+##....[]....[]..[]##
+##............[]..##
+##..[][]....[]..[]##
+##....[]@.....[]..##
+##[]##....[]......##
+```
+
+Calculate new sum of GPS coordinates with wider boxes.
+
+[Link to the challenge](https://adventofcode.com/2024/day/15)
+
+### Run it locally
+
+```bash
+irb
+require './lib/year2024/day15/resolver.rb'
+resolver = Year2024::Day15::Resolver.new
+resolver.run_case1 # => result for part one
+
+resolver = Year2024::Day15::Resolver.new
+resolver.run_case2 # => result for part two
+
+# To visualize the warehouse:
+resolver.visualize('initial')  # Show initial state
+resolver.run_case1(visualize: true)  # Run with visualization every 10 steps
+```
+
+Visualizations are saved in `visualizations/day15/` directory, showing:
+- Walls in black
+- Boxes in green
+- Robot in red
+- Empty spaces as dots
