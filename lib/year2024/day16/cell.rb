@@ -2,6 +2,7 @@ module Year2024
   module Day16
     class Cell
       attr_reader :x, :y, :symbol
+      attr_accessor :seat
 
       WALL = '#'.freeze
 
@@ -9,6 +10,7 @@ module Year2024
         @x = x_coord
         @y = y_coord
         @symbol = symbol
+        @seat = false
       end
 
       def empty?

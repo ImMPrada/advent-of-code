@@ -3,29 +3,29 @@ require_relative 'node'
 module Year2024
   module Day16
     class Reindeer
-      attr_reader :best_path, :best_price
+      attr_reader :best_paths, :best_price
 
       def initialize
-        @visited = Set.new
         @best_price = Float::INFINITY
-        @best_path = nil
+        @best_paths = []
+        @distances = {}
       end
 
-      def find_shortest_path(map)
-        queue = [Node.new(cell: map.starting_cell, direction: 'E')]
-        distances = { [queue.first.cell, queue.first.direction] => 0 }
+      def find_shortest_paths_price(map)
+        start_node = Node.new(cell: map.starting_cell, direction: 'E')
+        @distances = { [start_node.cell, start_node.direction] => 0 }
 
-        run_loop(queue, map, distances)
+        explore_paths([start_node], map)
         best_price
       end
 
-      def visualize_path
-        return unless @best_path
+      def visualize_path(path_index = 0)
+        return nil if best_paths.empty?
 
         path = []
-        current = @best_path
+        current = best_paths[path_index]
         while current
-          path.unshift([current.cell.x, current.cell.y, current.direction])
+          path.unshift([current.cell.x, current.cell.y, current.direction, current.price])
           current = current.previous_node
         end
 
@@ -34,40 +34,62 @@ module Year2024
 
       private
 
-      attr_reader :visited
+      attr_reader :distances
 
-      def run_loop(queue, map, distances)
+      def explore_paths(queue, map)
         until queue.empty?
           current_node = queue.min_by(&:price)
           queue.delete(current_node)
 
-          state = [current_node.cell, current_node.direction]
-          next if visited.include?(state)
-
-          @visited.add(state)
+          puts "queue size: #{queue.size}"
 
           if current_node.cell == map.ending_cell
             compute_best_price(current_node)
             next
           end
 
-          enqueue_neighbor(current_node, map, queue, distances)
+          next if current_node.price >= best_price
+
+          enqueue_neighbors(current_node, map, queue)
         end
       end
 
       def compute_best_price(current_node)
-        return unless current_node.price < best_price
+        unless current_node.price < best_price
+          @best_paths << current_node unless duplicate_path?(current_node)
+          return
+        end
 
         @best_price = current_node.price
-        @best_path = current_node
+        @best_paths = [current_node]
       end
 
-      def enqueue_neighbor(current_node, map, queue, distances)
+      def duplicate_path?(node)
+        best_paths.any? { |path| same_path?(path, node) }
+      end
+
+      def same_path?(path1, path2)
+        cells1 = path_to_cells(path1)
+        cells2 = path_to_cells(path2)
+        cells1 == cells2
+      end
+
+      def path_to_cells(node)
+        cells = []
+        current = node
+        while current
+          cells.unshift([current.cell.x, current.cell.y])
+          current = current.previous_node
+        end
+        cells
+      end
+
+      def enqueue_neighbors(current_node, map, queue)
         current_node.neighbors(map).each do |neighbor|
           next_state = [neighbor.cell, neighbor.direction]
-          next if visited.include?(next_state)
+          current_best = distances[next_state] || Float::INFINITY
 
-          if neighbor.price < (distances[next_state] || Float::INFINITY)
+          if neighbor.price <= current_best
             distances[next_state] = neighbor.price
             queue << neighbor
           end

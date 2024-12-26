@@ -16,15 +16,6 @@
 - [Day 14](#day-14)
 - [Day 15](#day-15)
 - [Day 16](#day-16)
-- [Day 17](#day-17)
-- [Day 18](#day-18)
-- [Day 19](#day-19)
-- [Day 20](#day-20)
-- [Day 21](#day-21)
-- [Day 22](#day-22)
-- [Day 23](#day-23)
-- [Day 24](#day-24)
-- [Day 25](#day-25)
 
 ## Day 1
 
@@ -720,3 +711,93 @@ Visualizations are saved in `visualizations/day15/` directory, showing:
 - Boxes in green
 - Robot in red
 - Empty spaces as dots
+
+# Day 16: Reindeer Maze
+
+## Part 1: Finding the Optimal Path
+
+The Reindeer Olympics features a maze competition where reindeer must navigate from start (S) to end (E) with the lowest possible score:
+- Moving forward costs 1 point
+- Turning 90° costs 1000 points
+- Cannot move through walls (#)
+
+Example maze:
+```
+###############
+#.......#....E#
+#.#.###.#.###.#
+#.....#.#...#.#
+#.###.#####.#.#
+#.#.#.......#.#
+#.#.#####.###.#
+#...........#.#
+###.#.#####.#.#
+#...#.....#.#.#
+#.#.#.###.#.#.#
+#.....#...#.#.#
+#.###.#.#.#.#.#
+#S..#.....#...#
+###############
+```
+
+Solution visualization:
+```
+###############
+#.......#....E#
+#.#.###.#.###^#
+#.....#.#...#^#
+#.###.#####.#^#
+#.#.#.......#^#
+#.#.#####.###^#
+#..>>>>>>>>v#^#
+###^#.#####v#^#
+#>>^#.....#v#^#
+#^#.#.###.#v#^#
+#^....#...#v#^#
+#^###.#.#.#v#^#
+#S..#.....#>>^#
+###############
+```
+
+Best path costs: 7036 points (36 forward steps + 7 turns)
+
+## Part 2: Finding All Optimal Paths
+
+Find all tiles that are part of any optimal path through the maze. These tiles (marked O) represent the best spots to watch the competition:
+
+```
+###############
+#.......#....O#
+#.#.###.#.###O#
+#.....#.#...#O#
+#.###.#####.#O#
+#.#.#.......#O#
+#.#.#####.###O#
+#..OOOOOOOOO#O#
+###O#O#####O#O#
+#OOO#O....#O#O#
+#O#O#O###.#O#O#
+#OOOOO#...#O#O#
+#O###.#.#.#O#O#
+#O..#.....#OOO#
+###############
+```
+
+## Solution Notes
+
+- Part 1: Used Dijkstra's algorithm to find the shortest path considering both movement and turning costs
+- Part 2: Modified the algorithm to track all paths with the optimal cost
+- Added visualization to show:
+  - Multiple optimal paths in different colors
+  - Direction arrows showing movement
+  - Start (green) and End (red) positions
+  - Walls in black
+
+## Visualization
+
+Run with:
+```ruby
+resolver = Year2024::Day16::Resolver.new
+resolver.run_case1(visualize: true)  # Shows optimal paths price, and all optimal paths
+resolver.run_case2(visualize: true)  # Shows all cells used in optimal paths, and returns count of seats
+```
