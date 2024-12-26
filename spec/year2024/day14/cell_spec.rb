@@ -32,4 +32,69 @@ RSpec.describe Year2024::Day14::Cell do
       expect(cell.occupying).to eq([occupant.last])
     end
   end
+
+  describe '#neighborhood_density' do
+    let(:map) { Year2024::Day14::Map.new(7, 7) }
+    let(:tested_cell) { map[2, 2] }
+
+    before do
+      map[1, 1].occupying << 'rock'
+      map[1, 3].occupying << 'rock'
+      map[2, 2].occupying << 'rock'
+      map[2, 3].occupying << 'rock'
+      map[3, 1].occupying << 'rock'
+      map[3, 3].occupying << 'rock'
+      map[0, 3].occupying << 'rock'
+      map[1, 4].occupying << 'rock'
+      map[3, 4].occupying << 'rock'
+      map[4, 3].occupying << 'rock'
+      map[4, 5].occupying << 'rock'
+      map[4, 1].occupying << 'rock'
+      map[3, 0].occupying << 'rock'
+    end
+
+    context 'when X arrangement' do
+      subject(:arrangement) do
+        [
+          [1, 0, 1],
+          [0, 1, 0],
+          [1, 0, 1]
+        ]
+      end
+
+      it 'computes the density of the cell' do
+        expect(tested_cell.neighborhood_density(map, arrangement)).to eq(6)
+      end
+    end
+
+    context 'when squared arrangement' do
+      subject(:arrangement) do
+        [
+          [1, 1, 1],
+          [1, 1, 1],
+          [1, 1, 1]
+        ]
+      end
+
+      it 'computes the density of the cell' do
+        expect(tested_cell.neighborhood_density(map, arrangement)).to eq(7)
+      end
+    end
+
+    context 'when X extended arrangement' do
+      subject(:arrangement) do
+        [
+          [0, 1, 0, 1, 0],
+          [1, 1, 0, 1, 1],
+          [0, 0, 1, 0, 0],
+          [1, 1, 0, 1, 1],
+          [0, 1, 0, 1, 0]
+        ]
+      end
+
+      it 'computes the density of the cell' do
+        expect(tested_cell.neighborhood_density(map, arrangement)).to eq(12)
+      end
+    end
+  end
 end
