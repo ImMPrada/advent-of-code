@@ -1,14 +1,30 @@
 require_relative 'map'
 require_relative 'robot'
 require_relative 'velocity'
+require_relative 'renderable'
+require_relative 'statisticable'
 
 module Year2024
   module Day14
-    class Resolver
+    class Resolver # rubocop:disable Metrics/ClassLength
       FILE_PATH = 'lib/year2024/day14/input.txt'.freeze
       WIDTH = 101
       HEIGHT = 103
+      POSITIVE_HISTOGRAM_FILE = './visualizations/day14/density_positive_skewness_histograms.html'.freeze
+      NEGATIVE_HISTOGRAM_FILE = './visualizations/day14/density_negative_skewness_histograms.html'.freeze
 
+      DEFAULT_DENSITY_ARRANGEMENT = [
+        [1, 0, 0, 0, 0, 0, 1],
+        [0, 3, 0, 0, 0, 3, 0],
+        [0, 0, 8, 8, 8, 0, 0],
+        [0, 0, 8, 1, 8, 0, 0],
+        [0, 0, 8, 8, 8, 0, 0],
+        [0, 3, 0, 0, 0, 3, 0],
+        [1, 0, 0, 0, 0, 0, 1]
+      ].freeze
+
+      include Renderable
+      include Statisticable
       attr_reader :map, :robots
 
       def initialize(width = WIDTH, height = HEIGHT, path = nil)
@@ -22,11 +38,10 @@ module Year2024
       end
 
       def run_case1(seconds, visualize: false)
-        visualize('time_0') if visualize
-
         seconds.times do |count|
+          puts "count: #{count}"
           robots.each { |robot| robot.move(map) }
-          visualize("time_#{count + 1}") if visualize
+          map.render(count, title: "map_visualization_#{count}") if visualize
         end
 
         quadrants = build_quadrants
@@ -39,12 +54,22 @@ module Year2024
         sum_of_occupants.reduce(:*)
       end
 
-      def run_case2
-        # TODO: Implement case 2
-      end
+      def run_case2(seconds, visualize: false, density_arrangement: DEFAULT_DENSITY_ARRANGEMENT)
+        densities = []
 
-      def visualize(title)
-        map.render(title)
+        seconds.times do |count|
+          puts "count: #{count + 1}"
+          robots.each { |robot| robot.move(map) }
+          cells_density = map.cells_density(density_arrangement)
+          skewness = map.skewness(cells_density)
+          densities << { skewness:, density: cells_density, time: count + 1 }
+          map.render(count, title: "map_visualization_#{count}") if visualize
+        end
+
+        sorted_densities = densities.sort_by { |density| density[:skewness] }
+
+        render_skewness_histograms(sorted_densities)
+        sorted_densities
       end
 
       private
@@ -54,9 +79,7 @@ module Year2024
           p, v = line.split(' ')
 
           cell = map_cell(p)
-          puts "cell: #{cell.to_a}"
           velocity = velocity(v)
-          puts "velocity: #{velocity.to_a}"
           robot = Robot.new(cell:, velocity:)
           robots << robot
         end
@@ -64,13 +87,11 @@ module Year2024
 
       def velocity(v_string)
         vx, vy = v_string.split('=').last.split(',').map(&:to_i)
-        puts "vx: #{vx}, vy: #{vy}"
         Velocity.new(x_component: vx, y_component: vy)
       end
 
       def map_cell(p_string)
         x, y = p_string.split('=').last.split(',').map(&:to_i)
-        puts "x: #{x}, y: #{y}"
         map[x, y]
       end
 
@@ -113,6 +134,11 @@ module Year2024
           quadrants_rows_index_separator + 1...map.cells.row_count,
           quadrants_columns_index_separator + 1...map.cells.column_count
         )
+      end
+
+      def render_skewness_histograms(sorted_densities)
+        render_histograms(sorted_densities[-5..], page_title: 'positive skewness', file_name: POSITIVE_HISTOGRAM_FILE)
+        render_histograms(sorted_densities[0..4], page_title: 'negative skewness', file_name: NEGATIVE_HISTOGRAM_FILE)
       end
     end
   end
