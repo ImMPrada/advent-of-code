@@ -16,6 +16,7 @@
 - [Day 14](#day-14)
 - [Day 15](#day-15)
 - [Day 16](#day-16)
+- [Day 17](#day-17)
 
 ## Day 1
 
@@ -730,13 +731,13 @@ Example maze:
 #.###.#####.#.#
 #.#.#.......#.#
 #.#.#####.###.#
-#...........#.#
-###.#.#####.#.#
-#...#.....#.#.#
-#.#.#.###.#.#.#
-#.....#...#.#.#
-#.###.#.#.#.#.#
-#S..#.....#...#
+#..>>>>>>>>v#^#
+###^#.#####v#^#
+#>>^#.....#v#^#
+#^#.#.###.#v#^#
+#^....#...#v#^#
+#^###.#.#.#v#^#
+#S..#.....#>>^#
 ###############
 ```
 
@@ -800,4 +801,34 @@ Run with:
 resolver = Year2024::Day16::Resolver.new
 resolver.run_case1(visualize: true)  # Shows optimal paths price, and all optimal paths
 resolver.run_case2(visualize: true)  # Shows all cells used in optimal paths, and returns count of seats
+```
+
+## Day 17: Chronospatial Computer
+
+A 3-bit computer simulation with registers and basic instructions. The computer executes a program made of 3-bit numbers and maintains three registers (A, B, C).
+
+### Instructions
+- `adv` (0): Divides A by 2^operand, stores in A
+- `bxl` (1): XOR B with literal operand
+- `bst` (2): Sets B to operand mod 8
+- `jnz` (3): Jumps to operand if A != 0
+- `bxc` (4): XOR B with C
+- `out` (5): Outputs operand mod 8
+- `bdv` (6): Like adv but stores in B
+- `cdv` (7): Like adv but stores in C
+
+### Part 1: Program Output
+Run the program with given register values and collect output.
+
+```ruby
+resolver = Year2024::Day17::Resolver.new
+resolver.run_case1  # Returns the program's output as comma-separated values
+```
+
+### Part 2: Self-Replicating Program
+Find the lowest value for register A that makes the program output itself.
+
+```ruby
+resolver = Year2024::Day17::Resolver.new
+resolver.run_case2  # Returns the required initial value for register A
 ```
