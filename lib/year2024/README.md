@@ -17,6 +17,7 @@
 - [Day 15](#day-15)
 - [Day 16](#day-16)
 - [Day 17](#day-17)
+- [Day 18](#day-18)
 
 ## Day 1
 
@@ -832,3 +833,65 @@ Find the lowest value for register A that makes the program output itself.
 resolver = Year2024::Day17::Resolver.new
 resolver.run_case2  # Returns the required initial value for register A
 ```
+
+## Day 18: RAM Run
+
+Navigate through corrupting memory space to reach an exit point while avoiding falling bytes.
+
+### Part 1: Finding Shortest Path
+Find the shortest path from (0,0) to (70,70) avoiding corrupted memory locations.
+
+Example memory space after 12 bytes:
+```
+...#...
+..#..#.
+....#..
+...#..#
+..#..#.
+.#..#..
+#.#....
+```
+
+One possible shortest path (22 steps):
+```
+OO.#OOO
+.O#OO#O
+.OOO#OO
+...#OO#
+..#OO#.
+.#.O#..
+#.#OOOO
+```
+
+```ruby
+resolver = Year2024::Day18::Resolver.new
+resolver.run_case1(visualize: true)  # Returns shortest path length and shows visualization
+```
+
+### Part 2: Finding Blocking Byte
+Find the first byte that makes reaching the exit impossible.
+
+Example - after byte at (6,1) falls:
+```
+...#...
+.##..##  <- This byte blocks all paths
+.#..#..
+...#..#
+###..##
+.##.###
+#.#....
+```
+
+```ruby
+resolver = Year2024::Day18::Resolver.new
+resolver.run_case2(visualize: true)  # Returns coordinates of blocking byte
+```
+
+### Visualization
+The program generates HTML visualizations showing:
+- Safe memory locations (white)
+- Corrupted memory (red)
+- Path taken (green)
+- Start and end positions
+
+Visualizations are saved in `visualizations/day18/` directory.
