@@ -11,18 +11,18 @@ module Year2024
       }.freeze
 
       EMOJIS = {
-        search: "🔍",
-        found: "✨",
-        calculate: "🧮",
-        region: "🏰",
-        corner: "📐",
-        stack: "📚",
-        cell: "🟦",
-        price: "💰",
-        total: "💎",
-        build: "🏗️",
-        group: "🔄",
-        done: "✅"
+        search: '🔍',
+        found: '✨',
+        calculate: '🧮',
+        region: '🏰',
+        corner: '📐',
+        stack: '📚',
+        cell: '🟦',
+        price: '💰',
+        total: '💎',
+        build: '🏗️',
+        group: '🔄',
+        done: '✅'
       }.freeze
 
       def log_start_search
@@ -50,10 +50,11 @@ module Year2024
         puts "\n#{COLORS[:yellow]}#{EMOJIS[:total]} Final garden price: #{total}#{COLORS[:reset]}"
       end
 
-      def log_corner_found(i, j, corners)
+      def log_corner_found(i_coord, j_coord, corners)
         return unless (corners % 10).zero?
 
-        puts "#{COLORS[:cyan]}#{EMOJIS[:corner]} Found corner at (#{i},#{j}). Total corners: #{corners}#{COLORS[:reset]}"
+        puts "#{COLORS[:cyan]}#{EMOJIS[:corner]} Found corner at (#{i_coord},#{j_coord})."
+        puts "Total corners: #{corners}#{COLORS[:reset]}"
       end
 
       def log_calculation_start
@@ -85,4 +86,4 @@ module Year2024
       end
     end
   end
-end 
+end
