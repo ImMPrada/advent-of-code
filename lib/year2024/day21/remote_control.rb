@@ -1,11 +1,10 @@
 module Year2024
   module Day21
     class RemoteControl
-      attr_reader :buttons, :a_position
+      attr_reader :buttons
 
       def initialize(buttons)
         @buttons = buttons
-        @a_position = position_of('A')
       end
 
       def position_of(button)
@@ -18,7 +17,8 @@ module Year2024
       end
 
       def button_at(x, y)
-        return nil unless y.between?(0, 3) && x.between?(0, 2)
+        return nil unless y.between?(0, buttons.size - 1) && 
+                         x.between?(0, buttons[0].size - 1)
 
         buttons[y][x]
       end
@@ -30,10 +30,10 @@ module Year2024
       def possible_moves(pos)
         x, y = pos
         {
-          '^' => [x, y - 1],
           'v' => [x, y + 1],
           '<' => [x - 1, y],
-          '>' => [x + 1, y]
+          '>' => [x + 1, y],
+          '^' => [x, y - 1]
         }
       end
 
@@ -42,15 +42,18 @@ module Year2024
         to_pos = position_of(to_button)
 
         return [] if from_pos == to_pos
-
+        
         queue = [[from_pos, []]] # [position, path]
         visited = Set.new([from_pos])
 
         while queue.any?
-          pos, path = queue.shift
-          return path if pos == to_pos
+          current_pos, path = queue.shift
+          return path if current_pos == to_pos
 
-          possible_moves(pos).each do |direction, next_pos|
+          moves = possible_moves(current_pos)
+          ['v', '<', '>', '^'].each do |direction|
+            next unless moves.key?(direction)
+            next_pos = moves[direction]
             next if visited.include?(next_pos)
             next unless valid_position?(*next_pos)
 
